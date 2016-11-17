@@ -3,18 +3,33 @@ using namespace Pulsar;
 using namespace std;
 using namespace glm;
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <html5.h>
+#endif
+
 bool Window::createWindow(int width,int height, const char* title)
 {
+	#ifdef __EMSCRIPTEN__
+	EM_ASM(
+		Module.canvas = document.getElementById('canvas');
+		Module.glCtx = Module.canvas.getContext('webgl') || Module.canvas.getContext('experimental-webgl');
+		GLctx = Module.glCtx;
+	);
+	#endif
+
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		cout << "Failed to init SDL Error : " << SDL_GetError() << endl;
 		return false;
 	}
 
+	#ifndef __EMSCRIPTEN__
 	//Use OpenGL 3.3 core
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	#endif
 
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 			width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
