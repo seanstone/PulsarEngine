@@ -1,7 +1,7 @@
 #ifndef PULSARSCENE_H
 #define PULSARSCENE_H
 
-#include <PulsarMesh.hpp>
+#include <PulsarModel.hpp>
 
 #include <Pulsar.hpp>
 

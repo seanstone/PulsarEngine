@@ -1,7 +1,12 @@
 cmake_minimum_required (VERSION 2.6)
 
+if(${CMAKE_SYSTEM} STREQUAL Emscripten-1)
+	option(EMSCRIPTEN on)
+endif()
+
 # Include directories
 include_directories(Pulsar/include)
+include_directories(lib)
 
 # Output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -11,11 +16,17 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 #option(DEBUG_MODE on)
 
 # Options
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} " -std=c++11 -fopenmp -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}-std=c++11 -fopenmp -Wall")
 if(DEBUG_MODE)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -O -g")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O -g")
 else()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -O3 -ffast-math")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -ffast-math")
+endif()
+
+if(EMSCRIPTEN)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2")
+else()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DENABLE_ASSIMP -DENABLE_PNG")
 endif()
 
 add_subdirectory(Pulsar)

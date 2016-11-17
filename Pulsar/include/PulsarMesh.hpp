@@ -9,6 +9,8 @@
 #include <PulsarMath.hpp>
 #include <PulsarTexture.hpp>
 
+#include <DataBuffer.hpp>
+
 namespace Pulsar
 {
 using namespace std;
@@ -30,20 +32,6 @@ protected:
 	GLuint tco = 0;//Texture coordinate object
 	GLuint nbo = 0;//Normal array object
 	int dataSize = 0;
-};
-
-class Model
-{
-public:
-	bool load(string path);
-	void render();
-	void unload();
-
-	bool good();
-	int getMeshNum();
-	const Mesh** getMeshes();
-protected:
-	vector<Mesh*> meshList;
 };
 
 }
