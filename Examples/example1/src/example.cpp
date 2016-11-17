@@ -60,6 +60,8 @@ void MainWindow::initMeshItem()
 	shader = new ThreeDShader;
 	result &= shader->addVertexShader(File::readAllText("data/shader/test.vs"));
 	result &= shader->addFragmentShader(File::readAllText("data/shader/BasicLighting.fs"));
+	// result &= shader->addVertexShader(File::readAllText("data/shader/shadertoy.vs"));
+	// result &= shader->addFragmentShader(File::readAllText("data/shader/simple.fs"));
 	result &= shader->compile();
 	if(result == false)
 	{

@@ -4,6 +4,11 @@ using namespace Pulsar;
 #include <fstream>
 using namespace std;
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <html5.h>
+#endif
+
 void Renderer::clearScreen()
 {
 	//TODO: stencil buffer
