@@ -7,6 +7,8 @@ Makefile
 #anything we make
 bin/
 build/
+build2/
+build*/
 lib/
 *.so
 *.exe
@@ -25,3 +27,5 @@ lib/
 #OS generated stuff
 ehthumbs.db
 Thumbs.db
+
+glm/

@@ -13,9 +13,9 @@ bool Window::createWindow(int width,int height, const char* title)
 	#ifdef __EMSCRIPTEN__
 	instance = this;
 	EM_ASM(
-		Module.canvas = document.getElementById('canvas');
-		Module.glCtx = Module.canvas.getContext('webgl') || Module.canvas.getContext('experimental-webgl');
-		GLctx = Module.glCtx;
+		Module.canvas = (function() {
+          return document.getElementById('canvas');
+	  })();
 	);
 	#endif
 
