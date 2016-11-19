@@ -1,9 +1,12 @@
 #include <PulsarTexture.hpp>
 using namespace Pulsar;
 
-#ifdef ENABLE_PNG
-#include <png++/png.hpp>
+#ifdef __EMSCRIPTEN__
+#define __GLIBC__ 1
+#define __STDC_LIB_EXT1__ 1
+#define strerror_s(buf, ERRBUF_SIZE, errnum) strerror_r(errnum, buf, ERRBUF_SIZE)
 #endif
+#include <png++/png.hpp>
 
 Image::Image()
 {
@@ -20,7 +23,6 @@ void Image::load(string path, float gamma)
 	if(buffer != NULL)
 		unload();
 
-	#ifdef ENABLE_PNG
 	//NOTE: I Hate exceptions. Use them as least as possible
 	png::image<png::rgba_pixel> image;
 	try
@@ -45,7 +47,6 @@ void Image::load(string path, float gamma)
 			colorVec = glm::pow(colorVec,gammaVec);
 			buffer[i*width+j] = colorVec;
 		}
-	#endif
 }
 
 void Image::save(string path)
@@ -55,7 +56,6 @@ void Image::save(string path)
 		cout << "No image is not the buffer! can't save image." << endl;
 		return;
 	}
-	#ifdef ENABLE_PNG
 	png::image<png::rgba_pixel> image;
 	try
 	{
@@ -73,7 +73,6 @@ void Image::save(string path)
 	{
 		cout << "Failed to write to image " << path << endl;
 	}
-	#endif
 }
 
 void Image::unload()

@@ -110,11 +110,11 @@ void MainWindow::initMeshItem()
 	mesh->setTextureCoord((vec2*)uv, 8);
 	mesh->setNormals((vec3*)normals, 4);
 
-	// Image image;
-	// image.load("data/texture/planks_oak.png");
+	Image image;
+	image.load("data/texture/planks_oak.png");
 	texture = new Texture;
-	// texture->load(&image);
-	// texture->enableMipmap(true);
+	texture->load(&image);
+	texture->enableMipmap(true);
 	shader->setTexture(texture);
 
 	rootNode = new SceneNode;

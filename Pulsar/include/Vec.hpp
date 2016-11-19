@@ -13,6 +13,7 @@
 	#define M_1_PI (0.31830988618379067154) // 1.0/M_PI
 #endif
 
+#define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/vec4.hpp>
@@ -21,6 +22,7 @@
 
 #include <glm/matrix.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
 #include <glm/gtx/transform.hpp>
 
 #include <glm/gtx/compatibility.hpp>

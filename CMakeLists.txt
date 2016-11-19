@@ -3,13 +3,11 @@ cmake_minimum_required (VERSION 2.6)
 option(DEBUG_MODE off)
 option(EMSCRIPTEN off)
 option(ENABLE_ASSIMP off)
-option(ENABLE_PNG off)
 
 # Check if Emscripten
 if(${CMAKE_SYSTEM} STREQUAL Emscripten-1)
 	option(EMSCRIPTEN on)
 	option(ENABLE_ASSIMP off)
-	option(ENABLE_PNG off)
 endif()
 
 # Include directories
@@ -33,7 +31,7 @@ else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -ffast-math")
 endif()
 if(EMSCRIPTEN)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s FORCE_FILESYSTEM=1 --embed-file ${CMAKE_SOURCE_DIR}/data@/data")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s USE_LIBPNG=1 --embed-file ${CMAKE_SOURCE_DIR}/data@/data")
 	if(NOT DEBUG_MODE)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --closure 1")
 	endif()
@@ -42,9 +40,6 @@ endif()
 # Switches
 if(ENABLE_ASSIMP)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DENABLE_ASSIMP")
-endif()
-if(ENABLE_PNG)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DENABLE_PNG")
 endif()
 
 add_subdirectory(Pulsar)
