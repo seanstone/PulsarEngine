@@ -15,10 +15,17 @@ namespace Pulsar
 
 class Window
 {
+	static Window* instance;
+
 public:
 	virtual ~Window();
 
 	bool createWindow(int width,int height, const char* title);
+	void startLoop();
+
+	#ifdef __EMSCRIPTEN__
+	static void callLoop();
+	#endif
 	void loop();
 	void terminate();
 	int millSinceLastRender();

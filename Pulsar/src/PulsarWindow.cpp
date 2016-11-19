@@ -11,6 +11,7 @@ using namespace glm;
 bool Window::createWindow(int width,int height, const char* title)
 {
 	#ifdef __EMSCRIPTEN__
+	instance = this;
 	EM_ASM(
 		Module.canvas = document.getElementById('canvas');
 		Module.glCtx = Module.canvas.getContext('webgl') || Module.canvas.getContext('experimental-webgl');
@@ -57,12 +58,15 @@ bool Window::createWindow(int width,int height, const char* title)
 	return true;
 }
 
-void Window::loop()
+void Window::startLoop()
 {
-	bool quit = false;
-	SDL_Event event;
 	SDL_StartTextInput();
 
+	#ifdef __EMSCRIPTEN__
+	emscripten_set_main_loop(callLoop, 60, 1);
+	#else
+	bool quit = false;
+	SDL_Event event;
 	while(quit == false)
 	{
 		while(SDL_PollEvent(&event)!= 0)
@@ -70,17 +74,31 @@ void Window::loop()
 			if(event.type == SDL_QUIT)
 				quit = true;
 		}
-		update();
-		render();
-		lastRender = std::chrono::high_resolution_clock::now();
-
-		SDL_GL_SwapWindow(window);
+		loop();
 	}
-	SDL_StopTextInput();
+	#endif
+}
+
+#ifdef __EMSCRIPTEN__
+Window* Window::instance;
+void Window::callLoop()
+{
+	instance->loop();
+}
+#endif
+
+void Window::loop()
+{
+	update();
+	render();
+	lastRender = std::chrono::high_resolution_clock::now();
+
+	SDL_GL_SwapWindow(window);
 }
 
 void Window::terminate()
 {
+	SDL_StopTextInput();
 	SDL_DestroyWindow(window);
 	window = NULL;
 	SDL_Quit();

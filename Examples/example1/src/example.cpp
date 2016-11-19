@@ -226,7 +226,7 @@ void MainWindow::update()
 int main()
 {
 	MainWindow window;
-	window.loop();
+	window.startLoop();
 	window.terminate();
 
 	return 0;
