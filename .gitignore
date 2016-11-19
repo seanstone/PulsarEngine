@@ -16,7 +16,8 @@ lib/
 *.o
 *.class
 *.jar
-*.js
+#*.js
+#*.mem
 
 #GNOME backup files
 ~*.*

@@ -34,6 +34,9 @@ else()
 endif()
 if(EMSCRIPTEN)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s FORCE_FILESYSTEM=1 --embed-file ${CMAKE_SOURCE_DIR}/data@/data")
+	if(NOT DEBUG_MODE)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --closure 1")
+	endif()
 endif()
 
 # Switches
