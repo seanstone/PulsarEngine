@@ -13,7 +13,7 @@ varying vec3 vertexCoord;
 varying vec3 normalVec;
 varying vec2 textureCoord;
 
-uniform sampler2D surfaceTexture;
+// uniform sampler2D surfaceTexture;
 
 #else
 
@@ -43,7 +43,8 @@ void main()
 	vec3 lightStrengthOnFragment = pointLight.radiant*(dot(normalVec,directionVec)/(dist*dist));
 
 	#ifdef WEBGL
-	vec4 textureColor = texture2D(surfaceTexture,textureCoord);
+	// vec4 textureColor = texture2D(surfaceTexture,textureCoord);
+	vec4 textureColor = vec4(1,1,1,1);
 	#else
 	vec4 textureColor = texture(surfaceTexture,textureCoord);
 	#endif

@@ -39,13 +39,13 @@ protected:
 
 MainWindow::MainWindow()
 {
-	createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "PulsarEngine Example");
+	createWindow(1920, WINDOW_HEIGHT, "PulsarEngine Example");
 
 	renderer.init();
 	renderer.setClearColor(vec3(0, 0, 0.2));
 
 	initMeshItem();
-	initModelItem();
+	// initModelItem();
 
 	Projection projection;
 	projection.setProjection(radians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 0.01f, 50.0f);
@@ -110,11 +110,11 @@ void MainWindow::initMeshItem()
 	mesh->setTextureCoord((vec2*)uv, 8);
 	mesh->setNormals((vec3*)normals, 4);
 
-	Image image;
-	image.load("data/texture/planks_oak.png");
+	// Image image;
+	// image.load("data/texture/planks_oak.png");
 	texture = new Texture;
-	texture->load(&image);
-	texture->enableMipmap(true);
+	// texture->load(&image);
+	// texture->enableMipmap(true);
 	shader->setTexture(texture);
 
 	rootNode = new SceneNode;

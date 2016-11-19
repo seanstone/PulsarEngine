@@ -35,7 +35,7 @@ bool Window::createWindow(int width,int height, const char* title)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	#endif
 
-	window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if(window == NULL)
 	{
@@ -43,7 +43,7 @@ bool Window::createWindow(int width,int height, const char* title)
 		return false;
 	}
 
-	SDL_SetWindowSize(window, width, height);
+	//SDL_SetWindowSize(window, width, height);
 	context = SDL_GL_CreateContext(window);
 	if(context == NULL)
 	{
@@ -63,7 +63,7 @@ void Window::startLoop()
 	SDL_StartTextInput();
 
 	#ifdef __EMSCRIPTEN__
-	emscripten_set_main_loop(callLoop, 60, 1);
+	emscripten_set_main_loop(callLoop, 0, 1);
 	#else
 	bool quit = false;
 	SDL_Event event;
