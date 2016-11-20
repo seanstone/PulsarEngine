@@ -1,33 +1,20 @@
-#cmake stuff
+# CMake stuff
 CMakeFiles/
 CMakeCache.txt
 *.cmake
 Makefile
 
-#anything we make
-bin/
+# anything we make
 build/
-build2/
-build*/
+/data/
 lib/
-*.so
-*.exe
-*.dll
-*.o
-*.class
-*.jar
-#*.js
-#*.mem
 
-#GNOME backup files
+# GNOME backup files
 ~*.*
 
-#logs
+# logs
 *.log
 
-#OS generated stuff
+# OS generated stuff
 ehthumbs.db
 Thumbs.db
-
-glm/
-/lib/include/
