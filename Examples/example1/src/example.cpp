@@ -9,8 +9,8 @@ using namespace Pulsar;
 #include <string>
 using namespace std;
 
-#define WINDOW_WIDTH 200
-#define WINDOW_HEIGHT 400
+#define WINDOW_WIDTH 1200
+#define WINDOW_HEIGHT 1200
 
 class MainWindow : public Window
 {

@@ -60,6 +60,7 @@ bool Window::createWindow(int width,int height, const char* title)
 
 void Window::startLoop()
 {
+	printf("Main loop started\r\n");
 	SDL_StartTextInput();
 
 	#ifdef __EMSCRIPTEN__
