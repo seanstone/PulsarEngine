@@ -123,7 +123,7 @@ bool Texture::load(Image* image)
 {
 	if(id != 0)
 	{
-		cout << "Warrning : There is a texture currently valid but trying to load a new texture on. It will be overrided" << endl;
+		cout << "Warning : There is a texture currently valid but trying to load a new texture on. It will be overrided" << endl;
 		unload();
 	}
 
@@ -132,25 +132,32 @@ bool Texture::load(Image* image)
 	if(image->good() == false)
 		return false;
 
-	glGenTextures(1,&id);
-	glBindTexture(GL_TEXTURE_2D, id);
+	glGenTextures(1, &id);
+	bind();
 
 	//Try to not use the old APIs
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_FLOAT, image->getRaw());
-
+	// FIXME: GL_FLOAT on mobile
+	#ifndef __EMSCRIPTEN__
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_FLOAT, image->getRaw());
+	#else
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getRaw());
+	#endif
 	//NOTE : The "levels" argument must be n^2 on AMD GPU + Mesa Driver. not sure if required on AMD priority drivers.
 	//FIXME : The following commented code is for OpenGL 4.2+. Use it if we want 4.2+ support
 	// glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, image->getWidth(), image->getHeight());
 	// glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->getWidth(), image->getHeight(), GL_RGBA, GL_FLOAT, image->getRaw());
 
+	// FIXME on mobile
+	#ifndef __EMSCRIPTEN__
 	glGenerateMipmap(GL_TEXTURE_2D);
+	#endif
 	enableMipmap(false);
 
 	//Texture flags
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+	unbind();
 	return true;
 }
 
@@ -167,23 +174,28 @@ void Texture::bind()
 
 void Texture::unbind()
 {
+	// FIXME:
+	#ifndef __EMSCRIPTEN__
 	glBindTexture(GL_TEXTURE_2D, 0);
+	#endif
 }
 
 void Texture::enableMipmap(bool enable)
 {
 	bind();
 
-	if(enable == true)
+	if(enable)
 	{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		#ifndef __EMSCRIPTEN__
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.47);
+		#endif
 	}
 	else
 	{
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	}
 	unbind();
 }

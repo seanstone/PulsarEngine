@@ -9,8 +9,8 @@ using namespace Pulsar;
 #include <string>
 using namespace std;
 
-#define WINDOW_WIDTH 1200
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 200
+#define WINDOW_HEIGHT 400
 
 class MainWindow : public Window
 {
@@ -31,15 +31,15 @@ protected:
 	Camera* camera;
 	SceneNode* rootNode;
 	SceneMeshItem* meshItem;
-	SceneModelItem* modelItem;
+	//SceneModelItem* modelItem;
 
 	void initMeshItem();
-	void initModelItem();
+	// void initModelItem();
 };
 
 MainWindow::MainWindow()
 {
-	createWindow(1920, WINDOW_HEIGHT, "PulsarEngine Example");
+	createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "PulsarEngine Example");
 
 	renderer.init();
 	renderer.setClearColor(vec3(0, 0, 0.2));
@@ -112,7 +112,7 @@ void MainWindow::initMeshItem()
 	image.load("data/texture/planks_oak.png");
 	texture = new Texture;
 	texture->load(&image);
-	texture->enableMipmap(true);
+	texture->enableMipmap(false);
 	shader->setTexture(texture);
 
 	rootNode = new SceneNode;
@@ -121,30 +121,30 @@ void MainWindow::initMeshItem()
 	rootNode->addItem(meshItem);
 }
 
-void MainWindow::initModelItem()
-{
-	bool result = true;
-	normalShader = new ThreeDShader;
-	result &= normalShader->addVertexShader(File::readAllText("data/shader/test.vs"));
-	result &= normalShader->addFragmentShader(File::readAllText("data/shader/BasicLighting.fs"));
-	result &= normalShader->compile();
-	if(result == false)
-	{
-		terminate();
-		exit(0);
-	}
-
-	normalShader->Shader::bind();
-	normalShader->setParameter("pointLight.position",vec3(3, 2, 0));
-	normalShader->setParameter("pointLight.radiant",vec3(3.0f));
-	normalShader->Shader::unbind();
-
-	model = new Model;
-	model->load("data/model/monkey.obj");
-
-	modelItem = new SceneModelItem(model, normalShader);
-	rootNode->addItem(modelItem);
-}
+// void MainWindow::initModelItem()
+// {
+// 	bool result = true;
+// 	normalShader = new ThreeDShader;
+// 	result &= normalShader->addVertexShader(File::readAllText("data/shader/test.vs"));
+// 	result &= normalShader->addFragmentShader(File::readAllText("data/shader/BasicLighting.fs"));
+// 	result &= normalShader->compile();
+// 	if(result == false)
+// 	{
+// 		terminate();
+// 		exit(0);
+// 	}
+//
+// 	normalShader->Shader::bind();
+// 	normalShader->setParameter("pointLight.position",vec3(3, 2, 0));
+// 	normalShader->setParameter("pointLight.radiant",vec3(3.0f));
+// 	normalShader->Shader::unbind();
+//
+// 	model = new Model;
+// 	model->load("data/model/monkey.obj");
+//
+// 	modelItem = new SceneModelItem(model, normalShader);
+// 	rootNode->addItem(modelItem);
+// }
 
 MainWindow::~MainWindow()
 {
@@ -156,7 +156,7 @@ MainWindow::~MainWindow()
 	delete texture;
 	delete rootNode;
 	delete meshItem;
-	delete modelItem;
+	// delete modelItem;
 }
 
 void MainWindow::render()
