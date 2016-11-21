@@ -8,6 +8,7 @@ Makefile
 build/
 /data/
 lib/
+bin/
 
 # GNOME backup files
 ~*.*
