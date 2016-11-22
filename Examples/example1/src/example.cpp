@@ -9,8 +9,8 @@ using namespace Pulsar;
 #include <string>
 using namespace std;
 
-#define WINDOW_WIDTH 1200
-#define WINDOW_HEIGHT 1200
+#define WINDOW_WIDTH 300
+#define WINDOW_HEIGHT 300
 
 class MainWindow : public Window
 {
@@ -42,7 +42,7 @@ MainWindow::MainWindow()
 	createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "PulsarEngine Example");
 
 	renderer.init();
-	renderer.setClearColor(vec3(0, 0, 0.2));
+	renderer.setClearColor(vec3(135, 206, 250)/255.f);
 
 	initMeshItem();
 	// initModelItem();
@@ -50,7 +50,7 @@ MainWindow::MainWindow()
 	Projection projection;
 	projection.setProjection(radians(70.0f), WINDOW_WIDTH, WINDOW_HEIGHT, 0.01f, 50.0f);
 
-	camera = new Camera(vec3(0,0.1,5), vec3(0,0,-1), vec3(0,1,0));
+	camera = new Camera(vec3(0,0.1,3), vec3(0,0,-1), vec3(0,1,0));
 	camera->setProjection(projection);
 }
 
