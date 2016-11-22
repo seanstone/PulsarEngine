@@ -1,1 +1,2 @@
 Relocate .mem --> Module.locateFile();
+Handle resize
