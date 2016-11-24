@@ -6,7 +6,6 @@ Makefile
 
 # anything we make
 build/
-/data/
 lib/
 bin/
 
