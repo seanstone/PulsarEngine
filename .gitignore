@@ -9,6 +9,9 @@ build/
 /data/
 lib/
 bin/
+*.js
+*.mem
+*.data
 
 # GNOME backup files
 ~*.*
