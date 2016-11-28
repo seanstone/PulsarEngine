@@ -1,5 +1,6 @@
 #include <PulsarScene.hpp>
 #include <PulsarShader.hpp>
+#include <ThreeDShader.hpp>
 
 using namespace Pulsar;
 
