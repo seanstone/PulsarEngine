@@ -39,7 +39,7 @@ public:
 	bool setParameter(string name, bool val);
 
 protected:
-	bool addProgram(string text, GLenum type);
+	bool addShader(string text, GLenum type);
 	void addAllUniform();
 	GLint getUniform(string text);
 

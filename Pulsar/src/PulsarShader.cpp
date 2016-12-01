@@ -7,7 +7,7 @@ Shader::Shader()
 {
 	program = glCreateProgram();
 	if(program == 0)
-		cout << "Failed to create shader" << endl;
+		printf("Error: failed to create program.\n");
 }
 
 Shader::~Shader()
@@ -22,12 +22,12 @@ Shader::~Shader()
 
 bool Shader::addVertexShader(string text)
 {
-	return addProgram(text, GL_VERTEX_SHADER);
+	return addShader(text, GL_VERTEX_SHADER);
 }
 
 bool Shader::addFragmentShader(string text)
 {
-	return addProgram(text, GL_FRAGMENT_SHADER);
+	return addShader(text, GL_FRAGMENT_SHADER);
 }
 
 bool Shader::compile()
@@ -76,16 +76,15 @@ void Shader::unbind()
 	glUseProgram(0);
 }
 
-bool Shader::addProgram(string text, GLenum type)
+bool Shader::addShader(string text, GLenum type)
 {
-
 	//Create vertex shader
 	GLuint shader = glCreateShader(type);
 	const char* str = text.c_str();
 
 	if(shader == 0)
 	{
-		cout << "Failed to create shader" << endl;
+		printf("Error: failed to create shader.\n");
 		return false;
 	}
 
@@ -129,11 +128,10 @@ bool Shader::addProgram(string text, GLenum type)
 
 bool Shader::setParameter(string name,float val)
 {
-	//GLint uniformLocation = glGetUniformLocation(program,name.c_str());
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform1f(uniformLocation,val);
@@ -145,7 +143,7 @@ bool Shader::setParameter(string name, vec2 val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform2fv(uniformLocation,1,(float*)&val);
@@ -157,7 +155,7 @@ bool Shader::setParameter(string name, vec3 val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform3fv(uniformLocation,1,(float*)&val);
@@ -169,7 +167,7 @@ bool Shader::setParameter(string name, vec4 val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform4fv(uniformLocation,1,(float*)&val);
@@ -181,7 +179,7 @@ bool Shader::setParameter(string name, mat3x3 val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniformMatrix3fv(uniformLocation,1,GL_FALSE,(float*)&val);
@@ -193,7 +191,7 @@ bool Shader::setParameter(string name, mat4x4 val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniformMatrix4fv(uniformLocation,1,GL_FALSE,(float*)&val);
@@ -205,7 +203,7 @@ bool Shader::setParameter(string name, bool val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform1i(uniformLocation,val);
@@ -217,7 +215,7 @@ bool Shader::setParameter(string name, int val)
 	GLint uniformLocation = getUniform(name);
 	if(uniformLocation == -1)
 	{
-		cout << "Error : Uniform \"" << name << "\" not found" << endl;
+		printf("Error: uniform \"%s\" not found.\n", name.c_str());
 		return false;
 	}
 	glUniform1i(uniformLocation,val);
@@ -246,6 +244,7 @@ void Shader::addAllUniform()
 
 GLint Shader::getUniform(string name)
 {
+	// GLint uniformLocation = glGetUniformLocation(program, name.c_str());
 	unordered_map<string,GLint>::const_iterator search = uniforms.find(name);
 	if(search == uniforms.end())
 		return -1;

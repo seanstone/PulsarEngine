@@ -16,7 +16,7 @@ public:
 	void setTransformation(mat4 transformation);
 	void setCamera(Camera* cam);
 	void setProjection(Projection* project);
-	void updateInternalParametes();
+	void updateInternalParameters();
 
 protected:
 	Texture* texture = NULL;

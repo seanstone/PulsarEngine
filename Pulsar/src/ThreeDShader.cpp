@@ -15,23 +15,18 @@ bool ThreeDShader::compile()
 	if(success == false)
 		return false;
 
-	//Check if all uniforms we need are avliable
+	// Check if all uniforms we need are avliable
 	string requiredUniform [] = {"transformMatrix","cameraMatrix","projectionMatrix"};
 	for(string& str : requiredUniform)
 	{
 		if(getUniform(str) == -1)
 		{
-			cout << "Warrning : Missing uniform \"" << str << "\" in ThreeDShader. Maybe some programming error has occurred." << endl;
+			cout << "Warning : Missing uniform \"" << str << "\" in ThreeDShader." << endl;
 			success = false;
-			//do not break here, Print as more error message as possible.
-			//break;
 		}
 	}
 
-	if(success == false)
-		return false;
-
-	return true;
+	return success;
 }
 
 void ThreeDShader::bind()
@@ -40,7 +35,7 @@ void ThreeDShader::bind()
 		texture->bind();
 
 	Shader::bind();
-	updateInternalParametes();
+	updateInternalParameters();
 }
 
 void ThreeDShader::unbind()
@@ -65,7 +60,7 @@ void ThreeDShader::setProjection(Projection* project)
 	projection = project;
 }
 
-void ThreeDShader::updateInternalParametes()
+void ThreeDShader::updateInternalParameters()
 {
 	setParameter("transformMatrix",transformMatrix);
 	setParameter("cameraMatrix",camera->getCameraMatrix());
