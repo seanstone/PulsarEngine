@@ -6,7 +6,6 @@
 #include <vector>
 
 #include <PulsarMath.hpp>
-#include <PulsarCamera.hpp>
 
 #include <GL/glew.h>
 

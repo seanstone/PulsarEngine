@@ -42,14 +42,8 @@ void Canvas::render()
 	glBindVertexArray(vao);
 	glEnableVertexAttribArray(0);
 
-	//glDrawArrays(GL_TRIANGLES, 0, dataSize);
-	//glDrawElements(GL_TRIANGLES, dataSize, GL_UNSIGNED_INT, 0);
-
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-
-
-
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glBindVertexArray(0);

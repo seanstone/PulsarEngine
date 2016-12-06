@@ -16,7 +16,6 @@ namespace Pulsar
 using namespace std;
 
 class Texture;
-class Camera;
 class Projection;
 
 class Shader

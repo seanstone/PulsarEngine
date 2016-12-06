@@ -2,6 +2,7 @@
 #define THREEDSHADER_HPP
 
 #include <PulsarShader.hpp>
+#include <PulsarCamera.hpp>
 
 namespace Pulsar
 {

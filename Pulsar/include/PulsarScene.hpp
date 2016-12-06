@@ -2,6 +2,7 @@
 #define PULSARSCENE_H
 
 #include <PulsarModel.hpp>
+#include <PulsarCamera.hpp>
 
 #include <Pulsar.hpp>
 
