@@ -78,6 +78,12 @@ void Shader::unbind()
 
 bool Shader::addShader(string text, GLenum type)
 {
+	#ifdef __EMSCRIPTEN__
+	text = "#define WEBGL\r\n" + text;
+	#else
+	text = "#version 330 core\r\n" + text;
+	#endif
+
 	//Create vertex shader
 	GLuint shader = glCreateShader(type);
 	const char* str = text.c_str();

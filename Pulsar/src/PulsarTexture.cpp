@@ -2,7 +2,7 @@
 using namespace Pulsar;
 
 #ifdef __EMSCRIPTEN__
-#define __GLIBC__ 1
+#define __GLIBC__ 2
 #define __STDC_LIB_EXT1__ 1
 #define strerror_s(buf, ERRBUF_SIZE, errnum) strerror_r(errnum, buf, ERRBUF_SIZE)
 #endif
@@ -137,11 +137,13 @@ bool Texture::load(Image* image)
 
 	//Try to not use the old APIs
 	// FIXME: GL_FLOAT on mobile
-	#ifndef __EMSCRIPTEN__
+
+	//#ifndef __EMSCRIPTEN__
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_FLOAT, image->getRaw());
-	#else
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getRaw());
-	#endif
+	//#else
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getRaw());
+	//#endif
+
 	//NOTE : The "levels" argument must be n^2 on AMD GPU + Mesa Driver. not sure if required on AMD priority drivers.
 	//FIXME : The following commented code is for OpenGL 4.2+. Use it if we want 4.2+ support
 	// glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, image->getWidth(), image->getHeight());
