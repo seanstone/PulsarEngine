@@ -38,6 +38,7 @@ public:
 	virtual ~Texture();
 
 	bool load(Image* img);
+	bool fromRaw(vec4 buffer[], int width, int height);
 	void unload();
 	void bind();
 	void unbind();

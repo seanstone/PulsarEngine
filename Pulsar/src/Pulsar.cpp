@@ -6,7 +6,7 @@ using namespace std;
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
-#include <html5.h>
+#include <emscripten/html5.h>
 #endif
 
 void Renderer::clearScreen()
@@ -18,8 +18,8 @@ void Renderer::clearScreen()
 
 void Renderer::initFrame()
 {
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
 	//TODO: Depth clamp
 
@@ -72,6 +72,16 @@ void Transform::rotate(vec3 vec)
 void Transform::scale(vec3 vec)
 {
 	scaling = vec;
+}
+
+void Transform::setRotor(Quatf r)
+{
+	rotor = r;
+}
+
+Quatf Transform::getRotor()
+{
+	return rotor;
 }
 
 mat4x4 Transform::getRotationMatrix()

@@ -36,12 +36,15 @@ public:
 	void translate(vec3 vec);
 	void rotate(vec3 vec);
 	void scale(vec3 vec);
+	Quatf getRotor();
+	void setRotor(Quatf r);
 
 	mat4x4 getRotationMatrix();
 protected:
 	vec3 translation = vec3(0,0,0);
 	vec3 rotation = vec3(0,0,0);
 	vec3 scaling = vec3(1,1,1);
+	Quatf rotor = Quatf(1, 0, 0, 0);
 };
 
 class File

@@ -44,6 +44,7 @@ void SceneMeshItem::render(Camera* camera, mat4 preTransformMatrix)
 		Projection projection = camera->getProjection();
 		shader->setProjection(&projection);
 		shader->bind();
+		shader->setParameter("rotor", vec4(getRotor()));
 		mesh->render();
 		shader->unbind();
 	}
@@ -52,6 +53,16 @@ void SceneMeshItem::render(Camera* camera, mat4 preTransformMatrix)
 void SceneMeshItem::setShader(ThreeDShader* ThreeDShader)
 {
 	shader = ThreeDShader;
+}
+
+void SceneMeshItem::setRotor(Quatf r)
+{
+	rotor = r;
+}
+
+Quatf SceneMeshItem::getRotor()
+{
+	return rotor;
 }
 
 SceneModelItem::SceneModelItem(Model* m, ThreeDShader* s)

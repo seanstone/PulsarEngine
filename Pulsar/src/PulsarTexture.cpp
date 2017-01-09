@@ -163,6 +163,46 @@ bool Texture::load(Image* image)
 	return true;
 }
 
+bool Texture::fromRaw(vec4 buffer[], int width, int height)
+{
+	if(id != 0)
+	{
+		cout << "Warning : There is a texture currently valid but trying to load a new texture on. It will be overrided" << endl;
+		unload();
+	}
+
+	glGenTextures(1, &id);
+	bind();
+
+	//Try to not use the old APIs
+	// FIXME: GL_FLOAT on mobile
+
+	//#ifndef __EMSCRIPTEN__
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, buffer);
+	//#else
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getRaw());
+	//#endif
+
+	//NOTE : The "levels" argument must be n^2 on AMD GPU + Mesa Driver. not sure if required on AMD priority drivers.
+	//FIXME : The following commented code is for OpenGL 4.2+. Use it if we want 4.2+ support
+	// glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, image->getWidth(), image->getHeight());
+	// glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->getWidth(), image->getHeight(), GL_RGBA, GL_FLOAT, image->getRaw());
+
+	// FIXME on mobile
+	#ifndef __EMSCRIPTEN__
+	glGenerateMipmap(GL_TEXTURE_2D);
+	#endif
+	enableMipmap(false);
+
+	//Texture flags
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	unbind();
+	return true;
+}
+
+
 void Texture::unload()
 {
 	glDeleteTextures(1,&id);

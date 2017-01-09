@@ -16,7 +16,7 @@ bool ThreeDShader::compile()
 		return false;
 
 	// Check if all uniforms we need are avliable
-	string requiredUniform [] = {"transformMatrix","cameraMatrix","projectionMatrix"};
+	string requiredUniform [] = {"transformMatrix", "cameraMatrix", "projectionMatrix"};
 	for(string& str : requiredUniform)
 	{
 		if(getUniform(str) == -1)
@@ -65,4 +65,15 @@ void ThreeDShader::updateInternalParameters()
 	setParameter("transformMatrix",transformMatrix);
 	setParameter("cameraMatrix",camera->getCameraMatrix());
 	setParameter("projectionMatrix",projection->getProjectionMatrix());
+	// /setParameter("rotor", vec4(getRotor()));
 }
+
+// void ThreeDShader::setRotor(Quatf r)
+// {
+// 	rotor = r;
+// }
+//
+// Quatf ThreeDShader::getRotor()
+// {
+// 	return rotor;
+// }

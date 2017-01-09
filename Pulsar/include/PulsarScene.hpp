@@ -77,9 +77,12 @@ public:
 	SceneMeshItem(Mesh* m = NULL, ThreeDShader* s = NULL);
 	void render(Camera* camera, mat4 preTransformMatrix = mat4());
 	void setShader(ThreeDShader* ThreeDShader);
+	void setRotor(Quatf r);
+	Quatf getRotor();
 protected:
 	Mesh* mesh = NULL;
 	ThreeDShader* shader = NULL;
+	Quatf rotor = Quatf(1);
 };
 
 class SceneModelItem : public SceneItem
