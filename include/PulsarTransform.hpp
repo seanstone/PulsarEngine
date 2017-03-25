@@ -1,29 +1,11 @@
-#ifndef PULSAR_H
-#define PULSAR_H
+#ifndef PULSARTRANSFORM_HPP
+#define PULSARTRANSFORM_HPP
 
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include <PulsarEngine.hpp>
 #include <PulsarMath.hpp>
-
-#include <GL/glew.h>
 
 namespace Pulsar
 {
-
-using namespace std;
-
-class Renderer
-{
-public:
-	void clearScreen();
-	void initFrame();
-	bool init();
-	void setClearColor(vec3 color);
-protected:
-	vec3 clearColor;
-};
 
 class Transform
 {
@@ -45,12 +27,6 @@ protected:
 	vec3 rotation = vec3(0,0,0);
 	vec3 scaling = vec3(1,1,1);
 	Quatf rotor = Quatf(1, 0, 0, 0);
-};
-
-class File
-{
-public:
-	static string readAllText(string path);
 };
 
 }

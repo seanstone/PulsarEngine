@@ -1,5 +1,5 @@
-#ifndef QUATERNION_H_INCLUDED
-#define QUATERNION_H_INCLUDED
+#ifndef QUATERNION_HPP
+#define QUATERNION_HPP
 
 #include <iostream>
 #include <glm/matrix.hpp>

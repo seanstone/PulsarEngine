@@ -1,5 +1,5 @@
-#ifndef DATABUFFER_H
-#define DATABUFFER_H
+#ifndef DATABUFFER_HPP
+#define DATABUFFER_HPP
 
 #include <cstdint>
 #include <cstdlib>

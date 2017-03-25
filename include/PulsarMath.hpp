@@ -1,5 +1,5 @@
-#ifndef PULSARMATH_H
-#define PULSARMATH_H
+#ifndef PULSARMATH_HPP
+#define PULSARMATH_HPP
 
 #include <Vec.hpp>
 #include <Quaternion.hpp>

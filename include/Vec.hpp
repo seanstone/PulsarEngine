@@ -1,5 +1,5 @@
-#ifndef VEC_H
-#define VEC_H
+#ifndef VEC_HPP
+#define VEC_HPP
 
 #include <iostream>
 #define _USE_MATH_DEFINES

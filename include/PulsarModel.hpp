@@ -1,5 +1,5 @@
-#ifndef PULSAR_MODEL_HPP
-#define PULSAR_MODEL_HPP
+#ifndef PULSARMODEL_HPP
+#define PULSARMODEL_HPP
 
 #include <PulsarMesh.hpp>
 

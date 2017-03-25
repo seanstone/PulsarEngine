@@ -1,6 +1,7 @@
-#ifndef EXAMPLEUTILS_H
-#define EXAMPLEUTILS_H
+#ifndef PULSARENGINE_HPP
+#define PULSARENGINE_HPP
 
+#include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <iostream>
@@ -9,9 +10,21 @@
 
 #include <glm/glm.hpp>
 #include <glm/vec2.hpp>
+#include <PulsarMath.hpp>
 
 namespace Pulsar
 {
+
+class Renderer
+{
+public:
+	void clearScreen();
+	void initFrame();
+	bool init();
+	void setClearColor(vec3 color);
+protected:
+	vec3 clearColor;
+};
 
 class Window
 {

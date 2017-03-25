@@ -1,4 +1,4 @@
-#include <PulsarWindow.hpp>
+#include <PulsarEngine.hpp>
 using namespace Pulsar;
 using namespace std;
 using namespace glm;
@@ -8,20 +8,54 @@ using namespace glm;
 #include <html5.h>
 #endif
 
+void Renderer::clearScreen()
+{
+	//TODO: stencil buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(clearColor.r,clearColor.g,clearColor.b,1);
+}
+
+void Renderer::initFrame()
+{
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
+	//TODO: Depth clamp
+
+	//Auto Gamma correction
+	//glEnable(GL_FRAMEBUFFER_SRGB);
+}
+
+bool Renderer::init()
+{
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if(glewError != GLEW_OK)
+	{
+		cout << "Failed to initlaze GLEW Error : " << glewGetErrorString(glewError) << endl;
+		return false;
+	}
+	glGetError();//Clear any error of OpenGL that GLEW creates
+	return true;
+}
+
+void Renderer::setClearColor(vec3 color)
+{
+	clearColor = color;
+}
+
 bool Window::createWindow(int width,int height, const char* title)
 {
 	#ifdef __EMSCRIPTEN__
 	instance = this;
 	EM_ASM(
-		Module.canvas = (function() {
-          return document.getElementById('canvas');
-	  })();
+		Module.canvas = (function() { return document.getElementById('canvas'); })();
 	);
 	#endif
 
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		cout << "Failed to init SDL Error : " << SDL_GetError() << endl;
+		cout << "Failed to init SDL. Error: " << SDL_GetError() << endl;
 		return false;
 	}
 
@@ -29,7 +63,7 @@ bool Window::createWindow(int width,int height, const char* title)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	#else
-	//Use OpenGL 3.3 core
+	// Use OpenGL 3.3 core
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -37,22 +71,22 @@ bool Window::createWindow(int width,int height, const char* title)
 
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-	if(window == NULL)
+	if (window == NULL)
 	{
-		cout << "Failed to create window. Error : " << SDL_GetError() << endl;
+		cout << "Failed to create window. Error: " << SDL_GetError() << endl;
 		return false;
 	}
 
 	//SDL_SetWindowSize(window, width, height);
 	context = SDL_GL_CreateContext(window);
-	if(context == NULL)
+	if (context == NULL)
 	{
 		cout << "Failed to create OpenGL context. Error : " << SDL_GetError() << endl;
 		return false;
 	}
 
 	//NOTE:Do we really want VSync?
-	if(SDL_GL_SetSwapInterval(1) < 0)
+	if (SDL_GL_SetSwapInterval(1) < 0)
 		cout << "Warning: unable to activate Vsync. Error : " << SDL_GetError() << endl;
 
 	return true;
@@ -248,9 +282,6 @@ SDL_Scancode Window::keyToScanCode(Key key)
 		SDL_SCANCODE_F15,
 		SDL_SCANCODE_PAUSE
 	};
-
-
-
 	return codeTable[key];
 }
 

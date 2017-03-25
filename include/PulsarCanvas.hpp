@@ -1,5 +1,5 @@
-#ifndef PULSAR_CANVAS_HPP
-#define PULSAR_CANVAS_HPP
+#ifndef PULSARCANVAS_HPP
+#define PULSARCANVAS_HPP
 
 #include <GL/glew.h>
 #include <vector>

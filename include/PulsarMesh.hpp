@@ -1,5 +1,5 @@
-#ifndef PULSAR_MESH_HPP
-#define PULSAR_MESH_HPP
+#ifndef PULSARMESH_HPP
+#define PULSARMESH_HPP
 
 #include <GL/glew.h>
 #include <vector>
