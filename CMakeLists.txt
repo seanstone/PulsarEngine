@@ -1,4 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
+project(PulsarEngine)
 
 option(DEBUG_MODE off)
 option(EMSCRIPTEN off)
@@ -11,7 +12,7 @@ if(${CMAKE_SYSTEM} STREQUAL Emscripten-1)
 endif()
 
 # Include directories
-include_directories(Pulsar/include)
+include_directories(include)
 include_directories(lib)
 include_directories(lib/glm)
 
@@ -40,5 +41,14 @@ if(ENABLE_ASSIMP)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DENABLE_ASSIMP")
 endif()
 
-add_subdirectory(Pulsar)
-add_subdirectory(Examples)
+file(GLOB SOURCES "src/*.cpp")
+add_library(Pulsar SHARED ${SOURCES})
+target_link_libraries(Pulsar GL)
+if(EMSCRIPTEN)
+    set_target_properties(Pulsar PROPERTIES SUFFIX .bc)
+else()
+    target_link_libraries(Pulsar GLEW SDL2 png)
+endif()
+if(ENABLE_ASSIMP)
+    target_link_libraries(Pulsar assimp)
+endif()
