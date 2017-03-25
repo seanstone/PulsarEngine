@@ -1,5 +1,6 @@
-#version 330 core
+#ifdef WEBGL
 precision mediump float;
+#endif
 
 out vec4 color;
 in vec4 theColor;
