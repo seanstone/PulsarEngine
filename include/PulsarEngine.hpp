@@ -15,17 +15,6 @@
 namespace Pulsar
 {
 
-class Renderer
-{
-public:
-	void clearScreen();
-	void initFrame();
-	bool init();
-	void setClearColor(vec3 color);
-protected:
-	vec3 clearColor;
-};
-
 class Window
 {
 	static Window* instance;

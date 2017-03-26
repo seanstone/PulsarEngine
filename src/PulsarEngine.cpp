@@ -8,42 +8,6 @@ using namespace glm;
 #include <html5.h>
 #endif
 
-void Renderer::clearScreen()
-{
-	//TODO: stencil buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(clearColor.r,clearColor.g,clearColor.b,1);
-}
-
-void Renderer::initFrame()
-{
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glEnable(GL_DEPTH_TEST);
-	//TODO: Depth clamp
-
-	//Auto Gamma correction
-	//glEnable(GL_FRAMEBUFFER_SRGB);
-}
-
-bool Renderer::init()
-{
-	glewExperimental = GL_TRUE;
-	GLenum glewError = glewInit();
-	if(glewError != GLEW_OK)
-	{
-		cout << "Failed to initlaze GLEW Error : " << glewGetErrorString(glewError) << endl;
-		return false;
-	}
-	glGetError();//Clear any error of OpenGL that GLEW creates
-	return true;
-}
-
-void Renderer::setClearColor(vec3 color)
-{
-	clearColor = color;
-}
-
 bool Window::createWindow(int width,int height, const char* title)
 {
 	#ifdef __EMSCRIPTEN__
@@ -88,6 +52,15 @@ bool Window::createWindow(int width,int height, const char* title)
 	//NOTE:Do we really want VSync?
 	if (SDL_GL_SetSwapInterval(1) < 0)
 		cout << "Warning: unable to activate Vsync. Error : " << SDL_GetError() << endl;
+
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if(glewError != GLEW_OK)
+	{
+		cout << "Failed to initlaze GLEW Error : " << glewGetErrorString(glewError) << endl;
+		return false;
+	}
+	glGetError();//Clear any error of OpenGL that GLEW creates
 
 	return true;
 }
@@ -148,8 +121,8 @@ int Window::millSinceLastRender()
 
 void Window::render()
 {
+	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0,0,0,1);
 }
 
 void Window::update()

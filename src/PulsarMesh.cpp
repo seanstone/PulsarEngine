@@ -10,16 +10,11 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
-	if(vao != 0)
-		glDeleteVertexArrays(1,&vao);
-	if(vbo != 0)
-		glDeleteBuffers(1,&vbo);
-	if(ebo != 0)
-		glDeleteBuffers(1,&ebo);
-	if(tco != 0)
-		glDeleteBuffers(1,&tco);
-	if(nbo != 0)
-		glDeleteBuffers(1,&nbo);
+	if(vao) glDeleteVertexArrays(1, &vao);
+	if(vbo) glDeleteBuffers(1, &vbo);
+	if(ebo) glDeleteBuffers(1, &ebo);
+	if(tco) glDeleteBuffers(1, &tco);
+	if(nbo) glDeleteBuffers(1, &nbo);
 }
 
 void Mesh::setVertices(vec3* vertices, int size)

@@ -42,7 +42,17 @@ bool Shader::loadFragmentShader(string filepath)
 bool Shader::addShader(string text, GLenum type)
 {
 	#ifdef __EMSCRIPTEN__
-	text = "#define WEBGL\r\n" + text;
+	text = "#define WEBGL\r\n"  + "#define texture texture2D\r\n" + "precision mediump float;\r\n" + text;
+	switch (type)
+	{
+		case GL_VERTEX_SHADER:
+			text = "#define in attribute\r\n" + "#define out varying\r\n" + text;
+			break;
+		case GL_FRAGMENT_SHADER:
+			text = "#define in varying\r\n" + text;
+			break;
+	}
+
 	#else
 	text = "#version 330 core\r\n" + text;
 	#endif
