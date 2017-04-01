@@ -263,7 +263,7 @@ void Shader::addAllUniform()
 
 GLint Shader::getUniform(string name)
 {
-	// GLint uniformLocation = glGetUniformLocation(program, name.c_str());
+	//GLint uniformLocation = glGetUniformLocation(program, name.c_str());
 	unordered_map<string,GLint>::const_iterator search = uniforms.find(name);
 	if(search == uniforms.end())
 		return -1;

@@ -31,6 +31,7 @@ public:
 	void loop();
 	void terminate();
 	int millSinceLastRender();
+	virtual void handleEvent(SDL_Event* event);
 
 	virtual void render();
 	virtual void update();

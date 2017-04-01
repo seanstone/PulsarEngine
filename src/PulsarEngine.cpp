@@ -65,6 +65,11 @@ bool Window::createWindow(int width,int height, const char* title)
 	return true;
 }
 
+void Window::handleEvent(SDL_Event* event)
+{
+
+}
+
 void Window::startLoop()
 {
 	printf("Main loop started\r\n");
@@ -81,6 +86,8 @@ void Window::startLoop()
 		{
 			if(event.type == SDL_QUIT)
 				quit = true;
+			else
+				handleEvent(&event);
 		}
 		loop();
 	}
