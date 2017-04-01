@@ -94,6 +94,11 @@ void Camera::setDirection(vec3 dir)
 	direction = dir;
 }
 
+void Camera::setRight(vec3 rightVec)
+{
+	right = rightVec;
+}
+
 void Camera::setUp(vec3 upVec)
 {
 	up = upVec;
@@ -139,27 +144,27 @@ float Camera::getAspectRatio() const
 	return pixelAspectRatio;
 }
 
-PerspectiveCamera::~PerspectiveCamera()
-{
-}
-
-void PerspectiveCamera::setFOV(float2 fieldOfView)
-{
-	fov = fieldOfView;
-}
-
-void PerspectiveCamera::setFOV(float fovX, float fovY)
-{
-	fov = float2(fovX,fovY);
-}
-
-Ray PerspectiveCamera::createCameraRay(float2 uv) const
-{
-	vec3 rayVec = (uv.x*2.0f-1.0f)*right*tanf(fov.x*0.5f) * pixelAspectRatio
-		+ (1.0f-uv.y*2.0f)*up*tanf(fov.y*0.5f)
-		+ direction;
-	rayVec = normalize(rayVec);
-
-	Ray ray(position,rayVec);
-	return ray;
-}
+// PerspectiveCamera::~PerspectiveCamera()
+// {
+// }
+//
+// void PerspectiveCamera::setFOV(float2 fieldOfView)
+// {
+// 	fov = fieldOfView;
+// }
+//
+// void PerspectiveCamera::setFOV(float fovX, float fovY)
+// {
+// 	fov = float2(fovX,fovY);
+// }
+//
+// Ray PerspectiveCamera::createCameraRay(float2 uv) const
+// {
+// 	vec3 rayVec = (uv.x*2.0f-1.0f)*right*tanf(fov.x*0.5f) * pixelAspectRatio
+// 		+ (1.0f-uv.y*2.0f)*up*tanf(fov.y*0.5f)
+// 		+ direction;
+// 	rayVec = normalize(rayVec);
+//
+// 	Ray ray(position,rayVec);
+// 	return ray;
+// }

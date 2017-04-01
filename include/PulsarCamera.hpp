@@ -35,6 +35,7 @@ public:
 
         void setPosition(vec3 pos);
         void setDirection(vec3 dir);
+        void setRight(vec3 rightVec);
         void setUp(vec3 upVec);
         void setAspectRatio(float ratio);
 
@@ -51,30 +52,32 @@ public:
 
         virtual Ray createCameraRay(float2 uv) const{return Ray();}
 
-protected:
         vec3 position;
         vec3 direction;
         vec3 up;
         vec3 right;
         Projection projection;
         float pixelAspectRatio = 1.0f;
+
+protected:
+
 };
 
 class PerspectiveCamera : public Camera
 {
 public:
         using Camera::Camera;
-	virtual ~PerspectiveCamera();
-        void setFOV(float2 fieldOfView);
-        void setFOV(float fovX, float fovY);
-        inline float2 getFOV() const
-        {
-        	return fov;
-        }
-        virtual Ray createCameraRay(float2 uv) const;
-protected:
-        float2 fov = float2(M_PI/2.0);//default as 45 deg of fov
-};
+	// virtual ~PerspectiveCamera();
+    //     void setFOV(float2 fieldOfView);
+    //     void setFOV(float fovX, float fovY);
+    //     inline float2 getFOV() const
+    //     {
+    //     	return fov;
+    //     }
+    //     virtual Ray createCameraRay(float2 uv) const;
+
+        float fov = M_PI * 45.0 / 180.0;
+    };
 }
 
 #endif
